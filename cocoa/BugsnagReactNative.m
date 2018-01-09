@@ -241,6 +241,9 @@ RCT_EXPORT_METHOD(startWithOptions:(NSDictionary *)options) {
     }
     if ([Bugsnag bugsnagStarted] && !config.autoNotify) {
         bsg_kscrash_setHandlingCrashTypes(BSG_KSCrashTypeUserReported);
+        if (config.shouldAutoCaptureSessions) {
+            [Bugsnag startSession];
+        }
     } else if (![Bugsnag bugsnagStarted]) {
         [Bugsnag startBugsnagWithConfiguration:config];
     }
